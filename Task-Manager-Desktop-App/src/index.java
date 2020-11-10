@@ -2,9 +2,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class index {
-	public static void main(String[] args){
-		InputStream task = getTaskList();
-		sendTaskToGUI(task);
+	public static void main(String[] args) throws InterruptedException{
+		InputStream tasks = getTaskList();
+		GUI.createGUI(tasks);
+		while (true) {
+			Thread.sleep(500);
+			tasks = getTaskList();
+			GUI.updateGUI(tasks);
+		}
 	}
 	
 	private static InputStream getTaskList() {	
@@ -18,12 +23,5 @@ public class index {
 		    exp.printStackTrace();
 		}
 		return null;
-	}
-	
-	private static void sendTaskToGUI(InputStream task) {
-		if (task == null) { 
-			return;
-		}/* not sure if this is necessary*/
-		GUI.createGUI(task);
 	}
 }

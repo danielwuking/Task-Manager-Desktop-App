@@ -1,33 +1,33 @@
-import java.awt.Container;
-import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 
 public class GUI {   
-    public static void createGUI(InputStream data) {    
-        JFrame frame = new JFrame("Task Manager for Linux");
+	private static JFrame frame = new JFrame("Task Manager for Linux");
+	private static JPanel panel = new JPanel();
+    public static void createGUI(InputStream data) {            
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        JPanel panel = new JPanel();         
-        placeComponents(panel, data);        
+        placeComponents(data);        
         frame.add(addScrollPane(panel));
         frame.setVisible(true);
     }
+    
+    public static void updateGUI(InputStream data) {
+    	panel = new JPanel();
+    	placeComponents(data);
+    	frame.add(addScrollPane(panel));
+    }
  
-    private static void placeComponents(JPanel panel, InputStream data) {
+    private static void placeComponents(InputStream data) {
         panel.setLayout(null); 
 		try{
 			JTextArea text =  new JTextArea(parseDataToString(data));
@@ -60,3 +60,8 @@ public class GUI {
     }    
 
 }
+
+
+
+
+
