@@ -3,13 +3,11 @@ import java.io.InputStream;
 
 public class index {
 	public static void main(String[] args) throws InterruptedException{
-		InputStream tasks = getTaskList();
-		GUI.createGUI(tasks);
-		while (true) {
-			Thread.sleep(500);
-			tasks = getTaskList();
-			GUI.updateGUI(tasks);
-		}
+		startManager();
+//		while (true) {
+//			Thread.sleep(3000); /* update data per 3sec */
+//			updateManager();
+//		}		
 	}
 	
 	private static InputStream getTaskList() {	
@@ -23,5 +21,15 @@ public class index {
 		    exp.printStackTrace();
 		}
 		return null;
+	}
+	
+	private static void startManager() {
+		InputStream tasks = getTaskList();
+		GUI.createGUI(tasks);
+	} 
+	
+	private static void updateManager() {
+		InputStream tasks = getTaskList();
+		GUI.updateGUI(tasks);		
 	}
 }
