@@ -114,7 +114,7 @@ public class GUI {
 		int value = -1;
 	    while ((value = is.read()) != 10) {
 	    	char charValue = (char)value;
-	        System.out.print(charValue);
+//	        System.out.print(charValue);
 	        if (charValue == 'P' && PID[0] == -1) {
 	        	PID[0] = index;
 	        }
@@ -162,11 +162,9 @@ public class GUI {
 	    totalLength = index;
 	    Vector<String> rowData = new Vector<String>();
 	    Vector<Vector<String>> totalData = new Vector<Vector<String>>();
-	    System.out.println("\n");
-	    System.out.println("wow");
 
 	    while ((value = is.read()) != -1) { 
-	    	System.out.print((char)value);
+//	    	System.out.print((char)value);
 	    	if (value == 10) {
 	    		totalData.add(rowData);
 	    		rowData = new Vector<String>();
@@ -179,7 +177,7 @@ public class GUI {
 	    		while (index % totalLength < PID[1]) {
 	    			value = is.read(); 
 	    			str += Character.toString((char)value);
-	    			System.out.print((char)value);
+//	    			System.out.print((char)value);
 	    			index ++;
 	    		}
 
@@ -192,7 +190,7 @@ public class GUI {
 	    		while (index % totalLength < COMMAND[1]) {
 	    			value = is.read();
 	    			str += Character.toString((char)value);
-	    			System.out.print((char)value);
+//	    			System.out.print((char)value);
 	    			index ++;
 	    		}
 	    		rowData.add(str);
@@ -204,7 +202,7 @@ public class GUI {
 	    		while (index % totalLength < CPU[1]) {
 	    			value = is.read();
 	    			str += Character.toString((char)value);
-	    			System.out.print((char)value);
+//	    			System.out.print((char)value);
 	    			index ++;
 	    		}
 	    		rowData.add(str);
@@ -216,7 +214,7 @@ public class GUI {
 	    		while (index % totalLength < TIME[1]) {
 	    			value = is.read();
 	    			str += Character.toString((char)value);
-	    			System.out.print((char)value);
+//	    			System.out.print((char)value);
 	    			index ++;
 	    		}
 	    		rowData.add(str);
@@ -228,7 +226,7 @@ public class GUI {
 	    		while (index % totalLength < MEM[1]) {
 	    			value = is.read();
 	    			str += Character.toString((char)value);
-	    			System.out.print((char)value);
+//	    			System.out.print((char)value);
 	    			index ++;
 	    		}
 	    		rowData.add(str);
@@ -240,7 +238,7 @@ public class GUI {
 	    		while (index % totalLength < PPID[1]) {
 	    			value = is.read();
 	    			str += Character.toString((char)value);
-	    			System.out.print((char)value);
+//	    			System.out.print((char)value);
 	    			index ++;
 	    		}
 	    		rowData.add(str);
@@ -252,7 +250,7 @@ public class GUI {
 	    		while (index % totalLength < STATE[1]) {
 	    			value = is.read();
 	    			str += Character.toString((char)value);
-	    			System.out.print((char)value);
+//	    			System.out.print((char)value);
 	    			index ++;
 	    		}
 	    		rowData.add(str);
