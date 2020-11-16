@@ -1,12 +1,12 @@
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Vector;
-
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class index {
+	public static String sortKey = "PID";
+	
 	public static void main(String[] args) throws InterruptedException, IOException{		
 		startManager();
 		updateManagerRegularly();
@@ -23,12 +23,25 @@ public class index {
 				}
 			   }
 			});
-			timer.setDelay(500); // delay for 3 seconds
+			timer.setDelay(3000); // delay for 0.5 seconds
 			timer.start();
 	}
-	private static InputStream getTaskList() {	
+	
+	public static void killTaskByPid(String Pid) {	
 		ProcessBuilder pb = new ProcessBuilder("/bin/sh", "-c", 
-				"top -l 1 | grep \"  \" ");
+				"kill " + Pid);
+		pb.redirectError();
+		try {
+		    pb.start();
+		}
+		 catch (IOException exp) {
+		    exp.printStackTrace();
+		}
+	}
+	
+	private static InputStream getTaskList(String sortKey) {	
+		ProcessBuilder pb = new ProcessBuilder("/bin/sh", "-c", 
+				"top -o " + sortKey + " -l 1  | grep \"  \" ");
 		pb.redirectError();
 		try {
 		    Process p = pb.start();
@@ -42,12 +55,12 @@ public class index {
 	}
 	
 	private static void startManager() throws IOException {
-		InputStream data = getTaskList();
+		InputStream data = getTaskList(sortKey);
 		GUI.createGUI(data);
 	} 
 	
-	private static void updateManager() throws IOException {
-		InputStream data = getTaskList();
+	public static void updateManager() throws IOException {
+		InputStream data = getTaskList(sortKey);
 		GUI.updateGUI(data);		
 	}
 }
