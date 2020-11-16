@@ -23,7 +23,7 @@ public class index {
 				}
 			   }
 			});
-			timer.setDelay(3000); // delay for 0.5 seconds
+			timer.setDelay(3000); // delay for 3 seconds
 			timer.start();
 	}
 	

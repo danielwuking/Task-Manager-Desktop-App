@@ -63,9 +63,7 @@ public class GUI {
     private static void addKillByRowFunction(JTable table){
     	table.addMouseListener(new MouseAdapter(){
 			@Override
-			public void mouseClicked(MouseEvent e) {
-	            // do some actions here, for example
-	            // print first column value from selected row	        	
+			public void mouseClicked(MouseEvent e) {	        	
 	        	int selectRow = table.getSelectedRow();
 	        	if (selectRow != -1) {
 	        		String Pid = table.getValueAt(selectRow, 0).toString();
