@@ -2,8 +2,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -12,9 +14,11 @@ import java.util.regex.*;
 
 
 public class GUI {   
-	private static JFrame frame = new JFrame("Task Manager for Linux");
+	private static JFrame frame = new JFrame("Daniel's Task Manager for Linux");
 	private static JScrollPane scrollPane = new JScrollPane();
 	private static JTable table = new JTable();
+	public static String sortKey = "PID";
+	public static boolean sortReverse = true;
 	
     public static void createGUI(InputStream data) throws IOException {            
         frame.setSize(800, 500);
@@ -51,7 +55,13 @@ public class GUI {
     	    public void mouseClicked(MouseEvent e) {
     	        int col = table.columnAtPoint(e.getPoint());
     	        String name = table.getColumnName(col);
-    	        index.sortKey = name;
+    	        if (sortKey == name) {
+    	        	sortReverse = (sortReverse) ? false : true;
+    	        }
+    	        else {
+    	        	sortKey = name;
+    	        	sortReverse = true;
+    	        }
     	        try {
 					index.updateManager();
 				} catch (IOException e1) {
@@ -66,9 +76,12 @@ public class GUI {
 			public void mouseClicked(MouseEvent e) {	        	
 	        	int selectRow = table.getSelectedRow();
 	        	if (selectRow != -1) {
-	        		String Pid = table.getValueAt(selectRow, 0).toString();
-    				index.killTaskByPid(Pid);
-    				System.out.println(Pid + "has been killed");
+	        		String pid = table.getValueAt(selectRow, 0).toString();        		
+	        		int result = confirmKillProcess(pid);
+	        	    if (result == JOptionPane.YES_OPTION){
+	    				index.killTaskByPid(pid);
+	    				System.out.println(pid + "has been killed");
+	        	    }
 	        	}	        	
 	        }
 	    });
@@ -140,6 +153,7 @@ public class GUI {
 		Vector<int[]> allHeaderIndex =  getHeaderIndex(allHeader);
 		Vector<int[]> targetHeaderIndex =  selectTargetFromAllHeaderIndex(allHeaderIndex);
 		Vector<Vector<String>> dataVector = getDataRowVectorFromTargetHeader(targetHeaderIndex, is, index);
+		if (!sortReverse) Collections.reverse(dataVector); 
 		return dataVector;
 	}
 
@@ -175,7 +189,11 @@ public class GUI {
 		}
         return targetHeaderIndex;    
     }
-    
+    private static int confirmKillProcess(String pid) {
+		int mType=JOptionPane.INFORMATION_MESSAGE;
+		return JOptionPane.showConfirmDialog(frame,"Are you sure to kill process" + pid + "?",
+	    		"Confirm to kill process", JOptionPane.YES_NO_OPTION,mType); 
+    }
 }
 
 

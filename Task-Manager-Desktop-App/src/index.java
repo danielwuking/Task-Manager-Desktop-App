@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class index {
-	public static String sortKey = "PID";
-	
 	public static void main(String[] args) throws InterruptedException, IOException{		
 		startManager();
 		updateManagerRegularly();
@@ -27,9 +25,9 @@ public class index {
 			timer.start();
 	}
 	
-	public static void killTaskByPid(String Pid) {	
+	public static void killTaskByPid(String pid) {	
 		ProcessBuilder pb = new ProcessBuilder("/bin/sh", "-c", 
-				"kill " + Pid);
+				"kill " + pid);
 		pb.redirectError();
 		try {
 		    pb.start();
@@ -55,12 +53,12 @@ public class index {
 	}
 	
 	private static void startManager() throws IOException {
-		InputStream data = getTaskList(sortKey);
+		InputStream data = getTaskList(GUI.sortKey);
 		GUI.createGUI(data);
 	} 
 	
 	public static void updateManager() throws IOException {
-		InputStream data = getTaskList(sortKey);
+		InputStream data = getTaskList(GUI.sortKey);
 		GUI.updateGUI(data);		
 	}
 }
